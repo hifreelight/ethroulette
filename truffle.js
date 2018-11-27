@@ -16,6 +16,13 @@ module.exports = {
       },
       network_id: 4,
       gasPrice: 10e9
+    },
+    ropsten: {
+      provider: () => {
+        return new HDWalletProvider(`${process.env.MNEMONIC}`, `https://ropsten.infura.io/${process.env.INFURA_API_KEY}`)
+      },
+      network_id: 3,
+      gasPrice: 2*10e9
     }
   }
 };

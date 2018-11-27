@@ -5,6 +5,7 @@ import { StatusService } from '../shared/status.service';
 declare let require: any;
 const roscoin_artifacts = require('../../../build/contracts/Roscoin.json');
 const roulette_artifacts = require('../../../build/contracts/Roulette.json');
+const bt_roulette_artifacts = require('../../../build/contracts/BTRoulette.json');
 
 @Injectable()
 export class ContractService {
@@ -30,8 +31,10 @@ export class ContractService {
       await web3Service.ready();
       const deployingRoscoin = this.storeDeployedContract('Roscoin', roscoin_artifacts);
       const deployingRoulette = this.storeDeployedContract('Roulette', roulette_artifacts);
+      // const deployingBTRoulette = this.storeDeployedContract('BTRoulette', bt_roulette_artifacts);
       await deployingRoscoin;
       await deployingRoulette;
+      // await deployingBTRoulette;
     })();
   }
 

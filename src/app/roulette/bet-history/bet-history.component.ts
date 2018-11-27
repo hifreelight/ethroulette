@@ -10,7 +10,7 @@ export class Bet {
   id: string;
   blockNumber: number;
   betSize: number;
-  betNumber: number;
+  betNumbers: number[];
   winningNumber: number;
   payout: number;
 
@@ -18,14 +18,14 @@ export class Bet {
     id: string,
     blockNumber: number,
     betSize: number,
-    betNumber: number,
+    betNumbers: number[],
     winningNumber: number,
     payout: number
   ) {
     this.id = id;
     this.blockNumber = blockNumber;
     this.betSize = betSize;
-    this.betNumber = betNumber;
+    this.betNumbers = betNumbers;
     this.winningNumber = winningNumber;
     this.payout = payout;
   }
@@ -101,7 +101,7 @@ export class BetHistoryComponent implements OnInit {
     }
     const betSize = bet.args.betSize == null ? null : this.web3Service.fromWei(bet.args.betSize, 'ether');
     const payout = bet.args.payout == null ? null : this.web3Service.fromWei(bet.args.payout, 'ether');
-    this.addOrUpdate(new Bet(bet.args.qid, bet.blockNumber, betSize, bet.args.betNumber, bet.args.winningNumber, payout));
+    this.addOrUpdate(new Bet(bet.args.qid, bet.blockNumber, betSize, bet.args.betNumbers, bet.args.winningNumber, payout));
   }
 
   addOrUpdate(bet: Bet) {
@@ -115,9 +115,9 @@ export class BetHistoryComponent implements OnInit {
         this.bets[index].betSize = bet.betSize;
         console.log('Updated betSize for bet ', bet.id, ' to ', bet.betSize);
       }
-      if (this.bets[index].betNumber == null && bet.betNumber != null) {
-        this.bets[index].betNumber = bet.betNumber;
-        console.log('Updated betNumber for bet ', bet.id, ' to ', bet.betNumber);
+      if (this.bets[index].betNumbers == null && bet.betNumbers != null) {
+        this.bets[index].betNumbers = bet.betNumbers;
+        console.log('Updated betNumber for bet ', bet.id, ' to ', bet.betNumbers);
       }
       if (this.bets[index].winningNumber == null && bet.winningNumber != null) {
         this.bets[index].winningNumber = bet.winningNumber;

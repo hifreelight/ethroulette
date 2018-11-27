@@ -6,3 +6,9 @@ module.exports = (deployer) => {
     return deployer.deploy(Roulette, Roscoin.address);
   });
 };
+// var BTRoulette = artifacts.require("BTRoulette");
+// module.exports = (deployer) => {
+//   deployer.deploy(BTRoulette).then(() => {
+//     return true;
+//   });
+// };

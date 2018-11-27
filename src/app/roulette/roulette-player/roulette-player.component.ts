@@ -33,7 +33,9 @@ export class RoulettePlayerComponent implements OnInit {
     }
   }
 
-  async bet(number: number, betSize: number) {
+  async bet(numbers: string, betSize: number) {
+    const number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+    // const number = numbers.split(',');
     const deployedRoulette = this.contractService.getDeployedContract('Roulette');
     if (!deployedRoulette) {
       this.statusService.showStatus('Roulette contract is not available');
@@ -47,6 +49,71 @@ export class RoulettePlayerComponent implements OnInit {
 
     try {
       const tx = await deployedRoulette.bet(number, {from: this.accountService.account, value: betSizeInWei});
+
+      if (!tx) {
+        this.statusService.showStatus('Transaction failed, bet has not been placed');
+      } else {
+        this.statusService.showStatus('Transaction complete, bet has been placed');
+      }
+    } catch (e) {
+      console.log(e);
+      this.statusService.showStatus('Error placing bet; see log.');
+    }
+  }
+
+  async maxBet() {
+    const deployedRoulette = this.contractService.getDeployedContract('Roulette');
+    if (!deployedRoulette) {
+      this.statusService.showStatus('Roulette contract is not available');
+      return;
+    }
+    try {
+    const maxBet = await deployedRoulette.maxBet(18);
+    if (!maxBet) {
+      this.statusService.showStatus('Transaction failed, bet has not been placed');
+    } else {
+      //parseInt(maxBet)
+      console.log('maxBet is %o', this.web3Service.fromWei(maxBet, 'ether'));;
+      this.statusService.showStatus(`maxBet is ${maxBet}`);
+    }
+    } catch(e) {
+      console.log(e);
+      this.statusService.showStatus('Error placing bet; see log.');
+    }
+  }
+  async minBet() {
+    const deployedRoulette = this.contractService.getDeployedContract('Roulette');
+    if (!deployedRoulette) {
+      this.statusService.showStatus('Roulette contract is not available');
+      return;
+    }
+    try {
+    const minBet = await deployedRoulette.minBet();
+    if (!minBet) {
+      this.statusService.showStatus('Transaction failed, bet has not been placed');
+    } else {
+      //parseInt(minBet)
+      console.log('minBet is %o', this.web3Service.fromWei(minBet, 'ether'));;
+      this.statusService.showStatus(`minBet is ${minBet}`);
+    }
+    } catch(e) {
+      console.log(e);
+      this.statusService.showStatus('Error placing bet; see log.');
+    }
+  }
+  async deposit(){
+    const deployedRoulette = this.contractService.getDeployedContract('Roulette');
+    if (!deployedRoulette) {
+      this.statusService.showStatus('Roulette contract is not available');
+      return;
+    }
+    let value = 10;
+    const valueInWei = this.web3Service.toWei(value, 'ether');
+
+    this.statusService.showStatus('Initiating transaction... (please wait)');
+
+    try {
+      const tx = await deployedRoulette.deposit({from: this.accountService.account, value: valueInWei});
 
       if (!tx) {
         this.statusService.showStatus('Transaction failed, bet has not been placed');
