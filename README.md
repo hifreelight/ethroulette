@@ -126,16 +126,23 @@ After these games have been played by roulette players, the balance of the Roule
 ![Updated Roscoin price](/docs/img/updated-roscoin-price.png)
 
 
+## deploy
 ```
+cnpm install -g ethereum-bridge truffle ganache-cli @angular/cli
+ganache-cli --acctKeys=accounts.json
+ethereum-bridge -H localhost:8545 -a 9 --dev
+
 truffle migrate --network ropsten
 geth --fast --cache=1048 --testnet --unlock "0xfCaF08c2b82618B377338265629e686D711B3714" --rpc --rpcapi "eth,net,web3" --rpccorsdomain '*' --rpcaddr localhost --rpcport 8545
 ```
-
-
-https://developers.tron.network/v3.0/reference#tronwebapi
-
 
 bettown: 0x35822cc8046eff4863b34d1e716ba9ebdfcea90b
 BMSport: 0xB36281e10a881E9F166CF3Ca625F38d724fCc080
 
 [部署ropsten](https://ethereum.stackexchange.com/questions/23279/steps-to-deploy-a-contract-using-metamask-and-truffle)
+
+
+## Tron
+https://developers.tron.network/v3.0/reference#tronwebapi
+
+
