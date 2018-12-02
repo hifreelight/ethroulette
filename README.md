@@ -130,6 +130,7 @@ After these games have been played by roulette players, the balance of the Roule
 ```
 cnpm install -g ethereum-bridge truffle ganache-cli @angular/cli
 ganache-cli --acctKeys=accounts.json
+ganache-cli --account="0xa5f5985421a4c5cb5ddf0d4a98b1717dcfc43bdebe1b56c2ea79a1cea4a37377,100000000000000000000"
 ethereum-bridge -H localhost:8545 -a 9 --dev
 
 truffle migrate --network ropsten
